@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Fliek.Models.Customer>
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+@if (Model.Count() > 0)
+{
+
+    <table class="table  table-responsive table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th></th>
+        </tr>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(obj.FirstName + " " + obj.LastName, "Details", "Customers", new { id = obj.Id }, null)
+                </td>
+                <td>@obj.DateOFBirth</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = obj.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = obj.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = obj.Id })
+                </td>
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>We do not have any customers yet.</p>
+}

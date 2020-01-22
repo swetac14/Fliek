@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Fliek.Models.Movie>
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Id </th>
+        <th>Movie </th>
+        <th>Genre </th>
+        <th>Release Year </th>
+        <th>Rating</th>
+    </tr>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td>@d.Id</td>
+            <td>@d.MovieName</td>
+            <td>@d.Genre</td>
+            <td>@d.ReleaseDate</td>
+            <td>@d.Rating</td>
+
+        </tr>
+
+    }
+</table>
+
+

@@ -1,0 +1,26 @@
+﻿@model Fliek.Models.Customer
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <td>ID: @Model.Id</td>
+    </tr>
+    <tr>
+        <td>First Name: @Model.FirstName</td>
+    </tr>
+    <tr>
+        <td>Last Name: @Model.LastName</td>
+    </tr>
+    <tr>
+        <td>Age of Customer: @Model.DateOFBirth</td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to Customer List", "Index")
+</div>
