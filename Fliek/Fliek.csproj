@@ -191,9 +191,34 @@
     <Compile Include="Migrations\202001220642425_ApplyingDataAnnotations.Designer.cs">
       <DependentUpon>202001220642425_ApplyingDataAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001221753598_AnnotationsToGenerateAutoIncrementIDs.cs" />
+    <Compile Include="Migrations\202001221753598_AnnotationsToGenerateAutoIncrementIDs.Designer.cs">
+      <DependentUpon>202001221753598_AnnotationsToGenerateAutoIncrementIDs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001221825437_AddMembershipType1.cs" />
+    <Compile Include="Migrations\202001221825437_AddMembershipType1.Designer.cs">
+      <DependentUpon>202001221825437_AddMembershipType1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001222138104_UpdateMembershipType.cs" />
+    <Compile Include="Migrations\202001222138104_UpdateMembershipType.Designer.cs">
+      <DependentUpon>202001222138104_UpdateMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001222239223_MakeDateFieldsNullable.cs" />
+    <Compile Include="Migrations\202001222239223_MakeDateFieldsNullable.Designer.cs">
+      <DependentUpon>202001222239223_MakeDateFieldsNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001230627265_AddMoviesAndGenreType.cs" />
+    <Compile Include="Migrations\202001230627265_AddMoviesAndGenreType.Designer.cs">
+      <DependentUpon>202001230627265_AddMoviesAndGenreType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001230659230_PopulateGenreType.cs" />
+    <Compile Include="Migrations\202001230659230_PopulateGenreType.Designer.cs">
+      <DependentUpon>202001230659230_PopulateGenreType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\GenreType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -260,6 +285,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -289,6 +315,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001220642425_ApplyingDataAnnotations.resx">
       <DependentUpon>202001220642425_ApplyingDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001221753598_AnnotationsToGenerateAutoIncrementIDs.resx">
+      <DependentUpon>202001221753598_AnnotationsToGenerateAutoIncrementIDs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001221825437_AddMembershipType1.resx">
+      <DependentUpon>202001221825437_AddMembershipType1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001222138104_UpdateMembershipType.resx">
+      <DependentUpon>202001222138104_UpdateMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001222239223_MakeDateFieldsNullable.resx">
+      <DependentUpon>202001222239223_MakeDateFieldsNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001230627265_AddMoviesAndGenreType.resx">
+      <DependentUpon>202001230627265_AddMoviesAndGenreType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001230659230_PopulateGenreType.resx">
+      <DependentUpon>202001230659230_PopulateGenreType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

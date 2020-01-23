@@ -4,20 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+    <h2>@Model.FirstName  @Model.LastName</h2>
 
-<table class="table table-bordered table-responsive table-hover">
+<table class="table  table-hover">        
+    @if (Model.DateOFBirth != null) {
     <tr>
-        <td>ID: @Model.Id</td>
+        <td>Date of Birth: @Model.DateOFBirth</td>
+    </tr>
+    }
+    <tr>
+        <td>Subscribed To Newsletter: @Model.IsSuscribedToNewsletter</td>
     </tr>
     <tr>
-        <td>First Name: @Model.FirstName</td>
-    </tr>
-    <tr>
-        <td>Last Name: @Model.LastName</td>
-    </tr>
-    <tr>
-        <td>Age of Customer: @Model.DateOFBirth</td>
+        <td>Membership Type: @Model.MembershipType.Name</td>
     </tr>
 </table>
 

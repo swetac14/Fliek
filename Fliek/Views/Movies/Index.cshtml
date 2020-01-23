@@ -8,20 +8,18 @@
 
 <table class="table table-bordered table-responsive table-hover">
     <tr>
-        <th>Id </th>
         <th>Movie </th>
-        <th>Genre </th>
-        <th>Release Year </th>
+        <th>Release Year</th>
         <th>Rating</th>
+        <th>Genre</th>
     </tr>
     @foreach (var d in Model)
     {
         <tr>
-            <td>@d.Id</td>
-            <td>@d.MovieName</td>
-            <td>@d.Genre</td>
+            <td>@Html.ActionLink(d.MovieName, "details","Movies", new { id = d.Id }, null)</td>
             <td>@d.ReleaseDate</td>
             <td>@d.Rating</td>
+            <td>@d.GenreType.Genre</td>
 
         </tr>
 

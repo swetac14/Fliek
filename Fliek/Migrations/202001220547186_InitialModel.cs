@@ -17,18 +17,7 @@ namespace Fliek.Migrations
                         DateOFBirth = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Movies",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        MovieName = c.String(),
-                        ReleaseDate = c.DateTime(nullable: false),
-                        Rating = c.String(),
-                        Genre = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+           
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -117,7 +106,6 @@ namespace Fliek.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Movies");
             DropTable("dbo.Customers");
         }
     }

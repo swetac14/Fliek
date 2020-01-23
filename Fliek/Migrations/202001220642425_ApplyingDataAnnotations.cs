@@ -9,12 +9,10 @@ namespace Fliek.Migrations
         {
             AlterColumn("dbo.Customers", "FirstName", c => c.String(nullable: false, maxLength: 100));
             AlterColumn("dbo.Customers", "LastName", c => c.String(nullable: false, maxLength: 100));
-            AlterColumn("dbo.Movies", "MovieName", c => c.String(nullable: false, maxLength: 255));
         }
         
         public override void Down()
         {
-            AlterColumn("dbo.Movies", "MovieName", c => c.String());
             AlterColumn("dbo.Customers", "LastName", c => c.String());
             AlterColumn("dbo.Customers", "FirstName", c => c.String());
         }

@@ -4,35 +4,50 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fliek.Models;
+using System.Data.Entity;
 
 namespace Fliek.Controllers
 {
     public class MoviesController : Controller
     {
-
-        List<Movie> MovieList = new List<Movie>()
-            {
-                new Movie { Id = 1, MovieName = "Finding Nemo", Genre = "family", ReleaseDate=DateTime.Now, Rating = "PG-13" },
-                new Movie { Id = 2, MovieName = "Hidden Figures", Genre = "Sci-Fi",ReleaseDate=DateTime.Now, Rating = "PG-13" },
-                new Movie { Id = 3, MovieName = "Bird Box", Genre = "Horror", ReleaseDate=DateTime.Now, Rating = "A" },
-                new Movie { Id = 4, MovieName = "The week of", Genre = "comedy", ReleaseDate=DateTime.Now, Rating = "PG-13" },
-
-        };
-
+        private ApplicationDbContext _context;
         // GET: Movies
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         public ActionResult Index()
         {
-            
 
-            return View(MovieList);
+            var movies = _context.Movies.Include(c => c.GenreType).ToList();
+            return View(movies);
         }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            var cust = _context.Movies.Include(c => c.GenreType).SingleOrDefault(c => c.Id == id);
+            if (cust == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cust);
+        }
+
 
         [Route("movies/Release/{year}")]
         public ActionResult GetMoviesByYear(DateTime year)
         {
-            var movie = MovieList.Where(m => m.ReleaseDate == DateTime.Now);
 
-            return View(MovieList);
+            return View();
         }
     }
 }

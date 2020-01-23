@@ -4,25 +4,29 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fliek.Models;
+using System.Data.Entity;
 
 namespace Fliek.Controllers
-{ 
-  
+{  
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
 
-        List<Customer> customerList = new List<Customer>()
-            {
-                new Customer{Id=1, FirstName="Shailesh", LastName="Kushwaha", DateOFBirth=DateTime.Now },
-                new Customer{Id=2, FirstName="Sweta", LastName="Chauhan", DateOFBirth=DateTime.Now },
-                new Customer{Id=3, FirstName="Shanvi", LastName="Baby", DateOFBirth=DateTime.Now }
-            };
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
-        // GET: Customer
+      // GET: Customer
         public ActionResult Index()
         {
-            return View(customerList);
+            var cust = _context.Customers.Include(c => c.MembershipType).ToList();
+            return View(cust);
         }
 
 
@@ -30,19 +34,20 @@ namespace Fliek.Controllers
         {
             if (id == null)
             {
-                return new EmptyResult();
-            }
-            var cust = customerList.Where(c => c.Id == id).FirstOrDefault();
-
-            if (cust == null)
                 return HttpNotFound();
-
+            }
+            var cust = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            if (cust == null)
+            {
+                return HttpNotFound();
+            }
             return View(cust);
         }
 
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            var cust = customerList.Where(c => c.Id == id).FirstOrDefault();
+            var cust = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             return View(cust);
         }
