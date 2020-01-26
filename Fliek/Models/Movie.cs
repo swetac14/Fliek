@@ -15,15 +15,19 @@ namespace Fliek.Models
         public int Id { get; set; }
         [Required]
         [StringLength(255)]
+        [Display(Name = "Movie")]
         public string MovieName { get; set; }
 
+        [Display(Name = "Release Date")]
         public DateTime? ReleaseDate
         {
             get { return _releaseDate; }
             set { _releaseDate = value.HasValue ? (DateTime?)value.Value : null; }
         }
+        [Display(Name = "Date Added")]
         public DateTime DateAdded { get; set; }
         public string Rating { get; set; }
+        [Display(Name = "Number in Stock")]
         public int NumberInStock { get; set; }
         public GenreType GenreType { get; set; }
     }

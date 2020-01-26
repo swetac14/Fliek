@@ -18,19 +18,19 @@
         </tr>
         @foreach (var obj in Model)
         {
-    <tr>
-        <td>
-            @Html.ActionLink(obj.FirstName + " " + obj.LastName, "Details", "Customers", new { id = obj.Id }, null)
-        </td>
-        <td>@obj.IsSuscribedToNewsletter</td>
-        <td>@obj.MembershipType.Name</td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = obj.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = obj.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = obj.Id })
-        </td>
+            <tr>
+                <td>
+                    @Html.ActionLink(obj.FirstName + " " + obj.LastName, "Details", "Customers", new { id = obj.Id }, null)
+                </td>
+                <td>@obj.IsSuscribedToNewsletter</td>
+                <td>@obj.MembershipType.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = obj.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = obj.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = obj.Id })
+                </td>
 
-    </tr>
+            </tr>
         }
     </table>
 }
@@ -38,3 +38,5 @@ else
 {
     <p>We do not have any customers yet.</p>
 }
+
+<button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("New", "Customers")'">Create New Customer</button>

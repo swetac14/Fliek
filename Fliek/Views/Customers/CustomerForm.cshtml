@@ -1,0 +1,36 @@
+﻿@model Fliek.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "CustomerForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer Form</h2>
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.FirstName)
+        @Html.TextBoxFor(c => c.Customer.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Customer.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.LastName)
+        @Html.TextBoxFor(c => c.Customer.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Customer.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.DateOFBirth)
+        @Html.TextBoxFor(c => c.Customer.DateOFBirth, "{0: dd MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.MembershipTypeID)
+        @Html.DropDownListFor(c => c.Customer.MembershipTypeID, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control validate[required]" })
+        @Html.ValidationMessageFor(c => c.Customer.MembershipTypeID)
+    </div>
+    <div class=“checkbox”>
+        Subscribed To NewsLetter? @Html.CheckBoxFor(c => c.Customer.IsSuscribedToNewsletter)
+    </div>
+    <br />
+        @Html.HiddenFor(c => c.Customer.Id)
+        <button type="submit" class="btn btn-primary">Save</button>
+        }

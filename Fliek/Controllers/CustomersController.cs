@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Fliek.Models;
+using Fliek.ViewModels;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace Fliek.Controllers
 {  
@@ -44,12 +46,72 @@ namespace Fliek.Controllers
             return View(cust);
         }
 
-        [HttpGet]
+        
+        public ActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View("CustomerForm", viewModel);
+        }
+
         public ActionResult Edit(int id)
         {
             var cust = _context.Customers.SingleOrDefault(c => c.Id == id);
+            if (cust == null)
+                return HttpNotFound();
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = cust,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+            return View("CustomerForm", viewModel);
+        }
 
-            return View(cust);
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes
+                };
+                return View("CustomerForm", viewModel);
+            }
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+               var custDB= _context.Customers.Single(c => c.Id== customer.Id);
+                custDB.FirstName = customer.FirstName;
+                custDB.LastName = customer.LastName;
+                custDB.DateOFBirth = customer.DateOFBirth;
+                custDB.MembershipTypeID = customer.MembershipTypeID;
+                if(customer.MembershipTypeID == 0)
+                {
+                   // customer.MembershipType = "Unknown";
+                }
+                custDB.MembershipType = customer.MembershipType;
+                custDB.IsSuscribedToNewsletter = customer.IsSuscribedToNewsletter;
+            }
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch(DbEntityValidationException e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return RedirectToAction("Index","Customers");
         }
 
         [HttpPost]

@@ -16,12 +16,14 @@ namespace Fliek.Models
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
+        [Display(Name="First Name")]
         public string FirstName { get; set; }
         [Required]
         [StringLength(100)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        
+        [Display(Name = "Date of Birth")]
         public DateTime? DateOFBirth
         {
             get { return _dob; }
@@ -32,6 +34,7 @@ namespace Fliek.Models
 
         public bool IsSuscribedToNewsletter { get; set; }
         public MembershipType MembershipType { get; set; }
+        [Display(Name = "Membership Type")]
         public byte MembershipTypeID { get; set; }
     }
 }
