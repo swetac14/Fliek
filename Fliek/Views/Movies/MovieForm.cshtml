@@ -1,0 +1,46 @@
+﻿
+
+@model Fliek.ViewModels.MovieFormViewModel
+@{
+    ViewBag.Title = "MovieForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.PageTitle</h2>
+@using (Html.BeginForm("Save", "Movies"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.movie.MovieName)
+        @Html.TextBoxFor(m => m.movie.MovieName, new { @class = "form-control" })
+
+        @Html.ValidationMessageFor(m => m.movie.MovieName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.movie.GenreId)
+        @Html.DropDownListFor(m => m.movie.GenreId, new SelectList(Model.GenreTypes, "Id", "Genre"), "Select Genre", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.movie.GenreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.movie.ReleaseDate)
+        @Html.TextBoxFor(m => m.movie.ReleaseDate, "{0: dd MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.movie.Rating)
+        @Html.TextBoxFor(m => m.movie.Rating, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.movie.NumberInStock)
+        @Html.TextBoxFor(m => m.movie.NumberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.movie.NumberInStock)
+    </div>
+    <br />
+    @Html.HiddenFor(m => m.movie.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Movies")'">Cancel</button>
+
+}
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

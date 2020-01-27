@@ -9,21 +9,34 @@
 <table class="table table-bordered table-responsive table-hover">
     <tr>
         <th>Movie </th>
+        <th>Genre</th>
         <th>Release Year</th>
         <th>Rating</th>
-        <th>Genre</th>
     </tr>
     @foreach (var d in Model)
     {
-        <tr>
-            <td>@Html.ActionLink(d.MovieName, "details","Movies", new { id = d.Id }, null)</td>
-            <td>@d.ReleaseDate</td>
-            <td>@d.Rating</td>
-            <td>@d.GenreType.Genre</td>
+<tr>
+    <td>@Html.ActionLink(d.MovieName, "Edit", "Movies", new { id = d.Id }, null)</td>
+    <td>@d.GenreType.Genre</td>
+    <td>@d.ReleaseDate</td>
+    <td>
+        @for (int i = 0; i < Convert.ToInt32(@d.Rating); i++)
+        {
+            @*<span class="glyphicon glyphicon-star"></span>*@
+            <i class="fa fa-star" style="color:gold"></i>
+        }
+        @for (int i = Convert.ToInt32(@d.Rating); i < 5; i++)
+        {
+            @*<span class="glyphicon glyphicon-star-empty"></span>*@
+            <i class="fa fa-star-o" style="color:gold"></i>
+        }
+        @*@Convert.ToInt32(@d.Rating) stars*@
+    </td>
 
-        </tr>
 
+</tr>
     }
 </table>
+<button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("New", "Movies")'">Add New Movie</button>
 
 

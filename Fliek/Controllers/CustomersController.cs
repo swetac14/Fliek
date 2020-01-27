@@ -73,6 +73,7 @@ namespace Fliek.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if(!ModelState.IsValid)
@@ -94,11 +95,7 @@ namespace Fliek.Controllers
                 custDB.FirstName = customer.FirstName;
                 custDB.LastName = customer.LastName;
                 custDB.DateOFBirth = customer.DateOFBirth;
-                custDB.MembershipTypeID = customer.MembershipTypeID;
-                if(customer.MembershipTypeID == 0)
-                {
-                   // customer.MembershipType = "Unknown";
-                }
+                custDB.MembershipTypeID = customer.MembershipTypeID;               
                 custDB.MembershipType = customer.MembershipType;
                 custDB.IsSuscribedToNewsletter = customer.IsSuscribedToNewsletter;
             }
@@ -114,13 +111,7 @@ namespace Fliek.Controllers
             return RedirectToAction("Index","Customers");
         }
 
-        [HttpPost]
-        public ActionResult Edit(Customer c)
-        {
-            //write code to update customer 
-            
-            return RedirectToAction("Index");
-        }
+       
 
         [HttpDelete]
         public ActionResult Delete(int id)
