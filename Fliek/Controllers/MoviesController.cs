@@ -47,9 +47,9 @@ namespace Fliek.Controllers
         public ActionResult New()
         {
             var genreTypes = _context.GenreTypes.ToList();
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel()
             {
-                movie=  new Movie(),
+                //movie=  new Movie(),
                 GenreTypes = genreTypes               
 
             };
@@ -61,9 +61,8 @@ namespace Fliek.Controllers
             var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
             if (movie == null)
                 return HttpNotFound();
-            var viewModel = new MovieFormViewModel
-            {
-                movie = movie,           
+            var viewModel = new MovieFormViewModel(movie)
+            {           
                 GenreTypes = _context.GenreTypes.ToList()
             };
             return View("MovieForm", viewModel);
@@ -75,15 +74,15 @@ namespace Fliek.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new MovieFormViewModel
+                var viewModel = new MovieFormViewModel(movie)
                 {
-                    movie = movie,
                     GenreTypes = _context.GenreTypes
                 };
                 return View("MovieForm", viewModel);
             }
             if (movie.Id == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
             }
             else

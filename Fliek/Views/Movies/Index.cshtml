@@ -10,7 +10,7 @@
     <tr>
         <th>Movie </th>
         <th>Genre</th>
-        <th>Release Year</th>
+        <th>Release Date</th>
         <th>Rating</th>
     </tr>
     @foreach (var d in Model)
@@ -18,7 +18,14 @@
 <tr>
     <td>@Html.ActionLink(d.MovieName, "Edit", "Movies", new { id = d.Id }, null)</td>
     <td>@d.GenreType.Genre</td>
-    <td>@d.ReleaseDate</td>
+    <td>
+        @d.ReleaseDate.ToString().Replace("12:00:00 AM", "")
+        @*@if (d.ReleaseDate != null)
+        {
+       @d.ReleaseDate.ToString("dddd, dd MMMM yyyy");
+        }*@
+      @*  @d.ReleaseDate.HasValue ?d.ReleaseDate.Value.ToString("yyyy-MM-dd"): " ";*@
+    </td>
     <td>
         @for (int i = 0; i < Convert.ToInt32(@d.Rating); i++)
         {

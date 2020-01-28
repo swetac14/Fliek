@@ -339,3 +339,5 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /Fliek/ViewModels/MovieFormViewModel.cs
+/Fliek/Controllers/Api/CustomersController.cs
+/Fliek/Controllers/Api

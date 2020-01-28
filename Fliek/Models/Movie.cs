@@ -9,12 +9,8 @@ namespace Fliek.Models
 {
     public class Movie
     {
-        public Movie()
-        {
-            DateAdded = DateTime.Now;
-        }
-
         private DateTime? _releaseDate;
+        private int? _numberInStock;
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -26,10 +22,12 @@ namespace Fliek.Models
 
 
         [Display(Name = "Release Date")]
+        //[DataType(DataType.DateTime)]
+       // [DisplayFormat(DataFormatString = "{0: dd MMM yyyy}")]
         public DateTime? ReleaseDate
         {
             get { return _releaseDate; }
-            set { _releaseDate = value.HasValue ? (DateTime?)value.Value : null; }
+            set { _releaseDate = value.HasValue ? ((DateTime?)value.Value) : null; }
         }
 
         [Display(Name = "Date Added")]
@@ -41,7 +39,11 @@ namespace Fliek.Models
         [Display(Name = "Number in Stock")]
         [Required]
         [Range(0, 20)]
-        public int NumberInStock { get; set; }
+        public int? NumberInStock
+        {
+            get { return _numberInStock; }
+            set { _numberInStock = value.HasValue ? (int?)value.Value : null; }
+        }
 
         [Display(Name = "Genre")]
         public int GenreId { get; set; }
