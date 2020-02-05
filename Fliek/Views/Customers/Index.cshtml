@@ -9,7 +9,7 @@
 @if (Model.Count() > 0)
 {
 
-    <table class="table  table-responsive table-hover">
+    <table id="tblCustomers" class="table  table-responsive table-hover">
         <tr>
             <th>Name</th>
             <th>Subscribed</th>
@@ -27,7 +27,8 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = obj.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = obj.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = obj.Id })
+                    <button data-customer-id="@obj.Id" class="btn-link js-delete">Delete</button>
+                    @*@Html.ActionLink("Delete", "Delete", new { id = obj.Id })*@
                 </td>
 
             </tr>
@@ -40,3 +41,25 @@ else
 }
 
 <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("New", "Customers")'">Create New Customer</button>
+
+@section scripts{
+    <script>
+         $(document).ready(function() {  
+             alert("Hey! I am ready");
+             $("#tblCustomers .js-delete").on("click", function () {
+                 var button = $(this);
+                 if (confirm("Are you sure you want to delete this customer?")) {
+                     $.ajax({
+                         url: "/api/customers/" + button.attr("data-customer-id"),
+                         method: "DELETE",
+                         success: function () {
+                             button.parents("tr").remove();
+                         }
+                     });
+                 }
+             });
+    });  
+        
+    </script>
+    
+    }
