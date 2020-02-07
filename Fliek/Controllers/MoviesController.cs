@@ -26,8 +26,9 @@ namespace Fliek.Controllers
         public ActionResult Index()
         {
 
-            var movies = _context.Movies.Include(c => c.GenreType).ToList();
-            return View(movies);
+            // var movies = _context.Movies.Include(c => c.GenreType).ToList();
+            // return View(movies);
+            return View();
         }
 
         public ActionResult Details(int? id)

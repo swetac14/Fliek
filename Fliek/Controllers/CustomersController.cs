@@ -27,8 +27,10 @@ namespace Fliek.Controllers
       // GET: Customer
         public ActionResult Index()
         {
-            var cust = _context.Customers.Include(c => c.MembershipType).ToList();
-            return View(cust);
+            // var cust = _context.Customers.Include(c => c.MembershipType).ToList();
+            // return View(cust);
+
+            return View();
         }
 
 
@@ -63,9 +65,9 @@ namespace Fliek.Controllers
             var cust = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (cust == null)
                 return HttpNotFound();
-            var viewModel = new CustomerFormViewModel
+            var viewModel = new CustomerFormViewModel(cust)
             {
-                Customer = cust,
+               // Customer = cust,
                 MembershipTypes = _context.MembershipTypes.ToList()
             };
             return View("CustomerForm", viewModel);
@@ -76,11 +78,15 @@ namespace Fliek.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                           .Where(y => y.Count > 0)
+                           .ToList();
+                Console.WriteLine(errors);
                 var viewModel = new CustomerFormViewModel
                 {
-                    Customer = customer,
+                  //  Customer = customer,
                     MembershipTypes = _context.MembershipTypes
                 };
                 return View("CustomerForm", viewModel);

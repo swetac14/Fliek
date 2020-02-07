@@ -9,31 +9,32 @@
 @using (Html.BeginForm("Save", "Customers"))
 {
     <div class="form-group">
-        @Html.LabelFor(c => c.Customer.FirstName)
-        @Html.TextBoxFor(c => c.Customer.FirstName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Customer.FirstName)
+        @Html.LabelFor(c => c.FirstName)
+        @Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.FirstName)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Customer.LastName)
-        @Html.TextBoxFor(c => c.Customer.LastName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(c => c.Customer.LastName)
+        @Html.LabelFor(c => c.LastName)
+        @Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.LastName)
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Customer.DateOFBirth)
-        @Html.TextBoxFor(c => c.Customer.DateOFBirth, "{0: dd MMM yyyy}", new { @class = "form-control" })
+        @Html.LabelFor(c => c.DateOFBirth)
+        @Html.TextBoxFor(c => c.DateOFBirth, "{0: dd MMM yyyy}", new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.Customer.MembershipTypeID)
-        @Html.DropDownListFor(c => c.Customer.MembershipTypeID, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control validate[required]" })
-        @Html.ValidationMessageFor(c => c.Customer.MembershipTypeID)
+        @Html.LabelFor(c => c.MembershipTypeID)
+        @Html.DropDownListFor(c => c.MembershipTypeID, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control validate[required]" })
+        @Html.ValidationMessageFor(c => c.MembershipTypeID)
     </div>
     <div class=“checkbox”>
-        Subscribed To NewsLetter? @Html.CheckBoxFor(c => c.Customer.IsSuscribedToNewsletter)
+        Subscribed To NewsLetter? @Html.CheckBoxFor(c => c.IsSuscribedToNewsletter)
     </div>
     <br />
-    @Html.HiddenFor(c => c.Customer.Id)
+    @Html.HiddenFor(c => c.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Customers")'">Cancel</button>
 }
 @section scripts
 {

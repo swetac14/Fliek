@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using Fliek.Models;
 
 namespace Fliek.Dtos
 {
@@ -12,8 +11,6 @@ namespace Fliek.Dtos
     {
         private DateTime? _releaseDate;
         private int? _numberInStock;
-
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -38,6 +35,7 @@ namespace Fliek.Dtos
             set { _numberInStock = value.HasValue ? (int?)value.Value : null; }
         }
 
+        public GenreTypeDto GenreType { get; set; }
         public int GenreId { get; set; }
     }
 }

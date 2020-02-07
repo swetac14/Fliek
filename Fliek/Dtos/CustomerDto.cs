@@ -29,6 +29,8 @@ namespace Fliek.Dtos
         }
 
         public bool IsSuscribedToNewsletter { get; set; }
+
+        public MembershipTypeDto MembershipType { get; set; }
         public byte MembershipTypeID { get; set; }
 
     }

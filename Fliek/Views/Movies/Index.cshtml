@@ -6,44 +6,91 @@
 
 <h2>Movies</h2>
 
-<table class="table table-bordered table-responsive table-hover">
-    <tr>
-        <th>Movie </th>
-        <th>Genre</th>
-        <th>Release Date</th>
-        <th>Rating</th>
-    </tr>
-    @foreach (var d in Model)
-    {
-<tr>
-    <td>@Html.ActionLink(d.MovieName, "Edit", "Movies", new { id = d.Id }, null)</td>
-    <td>@d.GenreType.Genre</td>
-    <td>
-        @d.ReleaseDate.ToString().Replace("12:00:00 AM", "")
-        @*@if (d.ReleaseDate != null)
-        {
-       @d.ReleaseDate.ToString("dddd, dd MMMM yyyy");
-        }*@
-      @*  @d.ReleaseDate.HasValue ?d.ReleaseDate.Value.ToString("yyyy-MM-dd"): " ";*@
-    </td>
-    <td>
-        @for (int i = 0; i < Convert.ToInt32(@d.Rating); i++)
-        {
-            @*<span class="glyphicon glyphicon-star"></span>*@
-            <i class="fa fa-star" style="color:gold"></i>
-        }
-        @for (int i = Convert.ToInt32(@d.Rating); i < 5; i++)
-        {
-            @*<span class="glyphicon glyphicon-star-empty"></span>*@
-            <i class="fa fa-star-o" style="color:gold"></i>
-        }
-        @*@Convert.ToInt32(@d.Rating) stars*@
-    </td>
+<table id="tblMovies" class="table table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>Movie </th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-
-</tr>
-    }
+    </tbody>
 </table>
 <button type="submit" class="btn btn-primary" onclick="location.href='@Url.Action("New", "Movies")'">Add New Movie</button>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#tblMovies").DataTable({
+             ajax: {
+                    url: "/api/movies",
+                    dataSrc: ""
+                },
+                 columns: [
+                    {
+                        data: "movieName",
+                        render: function(data, type, movie) {
+                            return "<a href='/movies/edit/" + movie.id + "'>" + movie.movieName + "</a>";
+                        }
+                     },
+                     {
+                         data:"genreType.genre"
+                     },
+                     {
+                         data: "releaseDate",                         
+                         render: function (data) {
+                             //return data.split('T')[0];
+                             var jDate = new Date(data);
+                             jDate = jDate.getMonth()+1 + "/" + jDate.getDate() + "/" + jDate.getFullYear();
+                             return jDate;
+                         }
+                          
+                     },
+                    {
+                        data: "rating",
+                        render: function (data) {
+                            var star="";
+                            for (var i = 0; i < data; i++) {
+                                star += "<i class='fa fa-star' style='color:gold'></i>";
+                            }
+                            for (var i = data; i < 5; i++) {
+                                 star += "<i class='fa fa-star-o' style='color:gold'></i>";
+                            }
+                            return star;
+                        }
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-movie-id=" + data + ">Delete</button>";
+                        }
+                    }
+              ]
+          });       
 
+            $("#tblMovies").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure you want to delete this movie?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "api/movies/" + button.attr("data-movie-id"),
+                            method: "DELETE",
+                            success: function () {
+                                table.row(button.parents("tr")).remove().draw();
+                            }
+                        });
+
+                    }
+                });
+            });
+
+
+        });
+
+    </script>
+    }
 

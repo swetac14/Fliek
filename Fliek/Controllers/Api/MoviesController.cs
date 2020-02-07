@@ -5,6 +5,7 @@ using System.Web;
 using Fliek.Models;
 using Fliek.Dtos;
 using System.Web.Http;
+using System.Data.Entity;
 using AutoMapper;
 
 namespace Fliek.Controllers.Api
@@ -19,9 +20,10 @@ namespace Fliek.Controllers.Api
 
         //GET /api/movies
         [HttpGet]
-        public IEnumerable<MovieDto> GetMovies()
+        public IHttpActionResult GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            var movieResult= _context.Movies.Include(m=>m.GenreType).ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return Ok(movieResult);
         }
         
         //GET /api/movies/1

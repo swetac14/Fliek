@@ -7,6 +7,7 @@ using System.Web.Http;
 using Fliek.Models;
 using Fliek.Dtos;
 using AutoMapper;
+using System.Data.Entity;
 
 namespace Fliek.Controllers.Api
 {
@@ -19,9 +20,10 @@ namespace Fliek.Controllers.Api
             _context = new ApplicationDbContext();
         }
         // GET /api/customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IHttpActionResult GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customerResult= _context.Customers.Include(c => c.MembershipType).ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            return Ok(customerResult);
         }
 
         // GET /api/customers/1
