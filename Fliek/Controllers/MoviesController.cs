@@ -28,6 +28,8 @@ namespace Fliek.Controllers
 
             // var movies = _context.Movies.Include(c => c.GenreType).ToList();
             // return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovies))
+                return View("AdminIndex");
             return View();
         }
 
@@ -45,6 +47,7 @@ namespace Fliek.Controllers
             return View(cust);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var genreTypes = _context.GenreTypes.ToList();

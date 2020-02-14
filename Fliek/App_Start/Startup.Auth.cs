@@ -54,9 +54,9 @@ namespace Fliek
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "2501337963308233",
+               appSecret: "1e72a18ce9429768e0bad38f1bd3787f");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
