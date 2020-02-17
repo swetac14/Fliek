@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Fliek.Models;
+using Fliek.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Fliek.Controllers
@@ -152,7 +153,7 @@ namespace Fliek.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DrivingLicense = model.DrivingLicense };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DrivingLicense = model.DrivingLicense, PhoneNumber=model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -374,7 +375,7 @@ namespace Fliek.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DrivingLicense=model.DrivingLicense };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DrivingLicense = model.DrivingLicense, PhoneNumber = model.PhoneNumber };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
